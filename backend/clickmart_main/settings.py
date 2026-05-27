@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'users',
     'api',
+    'products',
 ]
 
 MIDDLEWARE = [
@@ -122,6 +123,11 @@ REST_FRAMEWORK = {
 
 
 SIMPLE_JWT ={
-    "ACCESS_TOKEN_LIFETIME" : timedelta(minutes=15),
-    "REFRESH_TOKEN_LIFETIME" : timedelta(days=15)
+    "ACCESS_TOKEN_LIFETIME" : timedelta(minutes=(config('ACCESS_TOKEN_EXPIRY', cast=int, default=15))),
+    "REFRESH_TOKEN_LIFETIME" : timedelta(days=(config('REFRESH_TOKEN_EXPIRY', cast=int, default=3)))
 }
+
+
+# Media URL
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
