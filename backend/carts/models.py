@@ -3,8 +3,6 @@ from django.contrib.auth import get_user_model
 from products.models import Product
 from decimal import Decimal
 from typing import TYPE_CHECKING
-if TYPE_CHECKING:
-    from .models import CartItem
 
 
 User = get_user_model()
@@ -19,6 +17,7 @@ class Cart(models.Model):
         return self.user.email
     
     if TYPE_CHECKING:
+        from .models import CartItem
         cart_items: models.QuerySet["CartItem"]
 
     # Subtotal Helper Function
