@@ -14,10 +14,10 @@ urlpatterns = [
     path('profile/', UserViews.ProfileView.as_view()),
 
     # Product API
-    path('product/', ProductViews.ProductListView.as_view()),
+    path('products/', ProductViews.ProductListView.as_view()),
 
     # Product Detail API
-    path('product/<int:pk>', ProductViews.ProductDetailView.as_view()),
+    path('products/<int:pk>/', ProductViews.ProductDetailView.as_view()),
 
     # Category API
     path('category/', ProductViews.CategoryListView.as_view()),

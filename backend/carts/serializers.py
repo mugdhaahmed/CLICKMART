@@ -17,7 +17,7 @@ class CartItemSerializer(serializers.ModelSerializer):
 # <--- Cart Serialzier --->
 class CartSerializer(serializers.ModelSerializer):
 
-    cart_items = CartItemSerializer(many=True, read_only=True, source="cart_items")
+    cart_items = CartItemSerializer(many=True, read_only=True)
     subtotal = serializers.DecimalField(max_digits=10, decimal_places=2)
     grand_total = serializers.DecimalField(max_digits=10, decimal_places=2)
 
