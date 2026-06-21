@@ -4,9 +4,13 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from products import views as ProductViews
 from carts import views as CartViews
 from orders import views as OrderViews
+from api import views as ApiViews
 
 
 urlpatterns = [
+    # Health Check API (for uptime pinger / Render health check)
+    path('health/', ApiViews.health_check, name='health'),
+
     # Registration API
     path('register/', UserViews.RegisterView.as_view()),
 

@@ -154,12 +154,21 @@ Environment is supplied via `backend/.env.docker` (backend) and `backend/.env.pr
 
 ---
 
+## ☁️ Deployment (free hosting)
+
+ClickMart can be deployed end-to-end for free: **Render** (backend + frontend), **Neon** (PostgreSQL), **Cloudinary** (media), and **UptimeRobot** (keep-awake pinger). A [`render.yaml`](render.yaml) Blueprint provisions both Render services in one click.
+
+See **[DEPLOYMENT.md](DEPLOYMENT.md)** for the full step-by-step guide.
+
+---
+
 ## 📡 API Endpoints
 
 Base path: `/api/v1/`
 
 | Method | Endpoint | Auth | Description |
 |--------|----------|------|-------------|
+| `GET`  | `/health/` | — | Health check (returns `{"status":"ok"}`) |
 | `POST` | `/register/` | — | Register a new user |
 | `POST` | `/token/` | — | Obtain access + refresh tokens (login) |
 | `POST` | `/token/refresh/` | — | Refresh an access token |
