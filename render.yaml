@@ -45,7 +45,7 @@ services:
   # Frontend — React (Vite) build served as a static site + CDN
   # ---------------------------------------------------------------
   - type: web
-    name: clickmart-frontend
+    name: clickmartbd
     runtime: static
     rootDir: frontend
     buildCommand: "npm install && npm run build"
