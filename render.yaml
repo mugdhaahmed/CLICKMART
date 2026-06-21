@@ -13,7 +13,7 @@ services:
     runtime: python
     plan: free
     rootDir: backend
-    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate"
+    buildCommand: "pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate && (python manage.py createsuperuser --noinput || true)"
     startCommand: "gunicorn clickmart_main.wsgi:application --bind 0.0.0.0:$PORT --workers 2 --timeout 120"
     healthCheckPath: /api/v1/health/
     envVars:
