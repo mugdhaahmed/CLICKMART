@@ -2,8 +2,6 @@
 
 A full-stack e-commerce application built with a **Django REST Framework** API backend and a **React (Vite)** single-page frontend. ClickMart supports product browsing, a persistent server-side cart, JWT-based authentication, order placement with email confirmation, and an order history dashboard.
 
-> Built as part of a 4-Week DRF BootCamp.
-
 ---
 
 ## ✨ Features
@@ -100,6 +98,14 @@ The app will be available at `http://localhost:5173`.
 ---
 
 ## 🔐 Environment Variables
+
+Sample templates are included — copy each and fill in your own values:
+
+```bash
+cp backend/.env.sample            backend/.env             # local development
+cp backend/.env.docker.sample     backend/.env.docker      # backend container
+cp backend/.env.production.sample backend/.env.production   # postgres container
+```
 
 ### `backend/.env`
 
