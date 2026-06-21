@@ -47,7 +47,6 @@ services:
   - type: web
     name: clickmart-frontend
     runtime: static
-    plan: free
     rootDir: frontend
     buildCommand: "npm install && npm run build"
     staticPublishPath: ./dist
