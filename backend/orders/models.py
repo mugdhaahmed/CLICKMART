@@ -20,8 +20,9 @@ class Order(models.Model):
     grand_total = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="PENDING")
     address = models.CharField(max_length=200, blank=True, null=True)
-    phone = models.CharField(max_length=12)
+    phone = models.CharField(max_length=12, blank=True, null=True)
     city = models.CharField(max_length=20, blank=True, null=True)
+    state = models.CharField(max_length=50, blank=True, null=True)
     zip_code = models.CharField(max_length=20, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -43,5 +44,5 @@ class OrderItem(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
 
-    def __str___(self):
+    def __str__(self):
         return f"{self.product.product_name} x {self.quantity}"

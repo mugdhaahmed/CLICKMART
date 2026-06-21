@@ -16,10 +16,10 @@ export const Home = () => {
       dispatch({
         type: "SET_CART",
         payload: {
-          items: response.data.items,
+          items: response.data.cart_items || [],
           subtotal: response.data.subtotal || 0,
           total: parseFloat(response.data.grand_total) || 0,
-          itemCount: response?.data?.items?.length || 0,
+          itemCount: response?.data?.cart_items?.length || 0,
         },
       });
     } catch (err) {

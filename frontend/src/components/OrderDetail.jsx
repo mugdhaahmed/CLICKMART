@@ -6,8 +6,7 @@ import { useEffect, useState } from "react";
 const OrderDetail = ({ orderId, isOpen, onClose }) => {
 
     const [order, setOrder] = useState(null)
-    const [loading, setLoading] = useState(false)
-    
+
      const { api } = useAxios();
      const { auth } = useAuth();
 
@@ -15,13 +14,10 @@ const OrderDetail = ({ orderId, isOpen, onClose }) => {
         if (!orderId) return
        const fetchOrders = async () => {
          try {
-           setLoading(true);
            const response = await api.get(`/orders/${orderId}`);
            setOrder(response.data);
          } catch (error) {
            console.error("Error fetching orders:", error);
-         } finally {
-           setLoading(false);
          }
        };
        if (auth.accessToken) fetchOrders();
@@ -72,6 +68,10 @@ if (!order) return null;
                                     <h6 className="fw-bold mb-3">Payment Summary</h6>
                                     <div className="bg-light p-3 rounded-3">
                                         <div className="d-flex justify-content-between mb-2">
+                                            <span className="text-muted">Subtotal</span>
+                                            <span>${order?.subtotal}</span>
+                                        </div>
+                                        <div className="d-flex justify-content-between mb-2">
                                             <span className="text-muted">Tax Amount</span>
                                             <span>${order?.tax_amount}</span>
                                         </div>
@@ -82,16 +82,43 @@ if (!order) return null;
                                     </div>
                                 </div>
 
-                                {/* Additional Info / Placeholder */}
+                                {/* Delivery Info */}
                                 <div className="col-md-6">
                                     <h6 className="fw-bold mb-3">Delivery Info</h6>
                                     <div className="d-flex gap-2 text-muted small">
                                         <MapPin size={16} className="flex-shrink-0" />
-                                        <p>{order?.address}, {order?.city}, {order?.state}, {order?.zip_code} </p>
-                                    
-                                        
+                                        <p>{order?.address}, {order?.city}, {order?.state}, {order?.zip_code}</p>
                                     </div>
-                                    <p className="ms-2">{order?.phone_number}</p>
+                                    <p className="ms-2 text-muted small">{order?.phone}</p>
+                                </div>
+
+                                {/* Ordered Items */}
+                                <div className="col-12">
+                                    <h6 className="fw-bold mb-3 d-flex align-items-center gap-2">
+                                        <Package size={16} /> Items
+                                    </h6>
+                                    <div className="table-responsive">
+                                        <table className="table align-middle mb-0">
+                                            <thead className="table-light">
+                                                <tr>
+                                                    <th>Product</th>
+                                                    <th className="text-center">Qty</th>
+                                                    <th className="text-end">Price</th>
+                                                    <th className="text-end">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {order?.items?.map((item) => (
+                                                    <tr key={item?.id}>
+                                                        <td>{item?.product_name}</td>
+                                                        <td className="text-center">{item?.quantity}</td>
+                                                        <td className="text-end">${item?.price}</td>
+                                                        <td className="text-end">${item?.total_price}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

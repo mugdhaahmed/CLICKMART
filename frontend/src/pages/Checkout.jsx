@@ -99,9 +99,9 @@ const Checkout = () => {
         });
       }
     } catch (error) {
-      console.error("Order error:", error);
       const errorMsg =
         error.response?.data?.message || "Order placement failed";
+      console.error("Order error:", errorMsg, error);
     } finally {
       setIsProcessing(false);
     }
@@ -291,10 +291,14 @@ const Checkout = () => {
                   <div className="alert alert-light border text-start">
                     <h6>Shipping to:</h6>
                     <p className="small mb-0">
-                      {shippingAddress.firstName} {shippingAddress.lastName}
+                      {`${profile?.first_name || ""} ${
+                        profile?.last_name || ""
+                      }`.trim() || profile?.username}
                       <br />
                       {shippingAddress.address}, {shippingAddress.city},{" "}
                       {shippingAddress.state} {shippingAddress.zipCode}
+                      <br />
+                      {shippingAddress.phone}
                     </p>
                   </div>
                   <div className="d-flex justify-content-between">
@@ -343,7 +347,7 @@ const Checkout = () => {
                         </div>
                       </div>
                       <small className="fw-semibold">
-                        ${item?.price * item?.quantity}
+                        ${(Number(item?.product_price) * item?.quantity).toFixed(2)}
                       </small>
                     </div>
                   ))}

@@ -24,11 +24,11 @@ class PlaceOrderView(APIView):
         except Cart.DoesNotExist:
             return Response({"error": "No cart found for this user"})
 
-        # shipping_address = request.data.get("shippingAddress")
-        # if not cart or cart.cart_items.count() == 0:
-        #     return Response({"error": "Cart is empty"})
         if not cart.cart_items.exists():
             return Response({"error": "Cart is empty"})
+
+        # Shipping details sent by the frontend (keys are camelCase from React)
+        shipping_address = request.data.get("shippingAddress") or {}
 
         # Create the Order
         order = Order.objects.create(
@@ -37,11 +37,11 @@ class PlaceOrderView(APIView):
             tax_amount = cart.tax_amount,
             grand_total = cart.grand_total,
             status = "CONFIRMED",
-            # address = shipping_address.get("address"),
-            # phone = shipping_address.get("phone"),
-            # city = shipping_address.get("city"),
-            # state = shipping_address.get("state"),
-            # zip_code = shipping_address.get("zip_code")
+            address = shipping_address.get("address"),
+            phone = shipping_address.get("phone"),
+            city = shipping_address.get("city"),
+            state = shipping_address.get("state"),
+            zip_code = shipping_address.get("zipCode"),
         )
 
         # Create the Items Snapshot for the Order 
@@ -56,8 +56,6 @@ class PlaceOrderView(APIView):
 
         # Clear the Cart after Processing the Order and Order Items Snapshot
         cart.cart_items.all().delete()
-        cart.delete()
-        cart.save()
 
         # Send Notification Email to User
         send_order_notification(order)
